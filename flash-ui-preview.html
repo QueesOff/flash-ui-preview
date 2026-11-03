@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flash — UI Preview</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --fg: #fafafa;
+      --muted: #a1a1aa;
+      --muted2: #71717a;
+      --border: #27272a;
+      --border2: #1f1f22;
+      --card: #0c0c0e;
+      --card2: #121214;
+      --ok: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% -15%, #18181b 0%, transparent 55%),
+        var(--bg);
+      color: var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      padding: 40px 24px 64px;
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .top h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+    .top p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .badge i {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ok); display: block;
+    }
+    .phones {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .cap {
+      color: var(--muted2);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .phone {
+      width: 340px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 26px 18px 28px;
+      box-shadow: 0 0 0 1px #111, 0 32px 64px rgba(0,0,0,.5);
+      min-height: 640px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+    }
+    .bolt {
+      width: 26px; height: 26px;
+      background: var(--fg);
+      clip-path: polygon(40% 0, 10% 55%, 42% 55%, 28% 100%, 90% 42%, 55% 42%);
+    }
+    .tagline { color: var(--muted); font-size: 13px; margin: 8px 0 0; line-height: 1.4; }
+    .card {
+      margin-top: 22px;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .row { display: flex; align-items: center; gap: 10px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); flex-shrink: 0; }
+    .dot.off { background: var(--muted2); }
+    .status { font-size: 14px; font-weight: 500; flex: 1; }
+    .switch {
+      width: 40px; height: 22px; border-radius: 999px;
+      background: #3f3f46; position: relative; flex-shrink: 0;
+    }
+    .switch::after {
+      content: ""; position: absolute; top: 2px; left: 20px;
+      width: 18px; height: 18px; border-radius: 50%; background: #fff;
+    }
+    .switch.off::after { left: 2px; }
+    .hint { color: var(--muted2); font-size: 12px; margin-top: 6px; }
+    .hr { height: 1px; background: var(--border); margin: 14px 0; }
+    .label { color: var(--muted); font-size: 12px; font-weight: 500; }
+    .uuid {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px; margin-top: 6px; color: var(--fg);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .btn {
+      margin-top: 16px; width: 100%; height: 46px; border: 0; border-radius: 8px;
+      background: #fafafa; color: #09090b; font-weight: 600; font-size: 14px;
+      font-family: inherit;
+    }
+    .btn.outline {
+      background: transparent; color: var(--fg); border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .btn.ghost {
+      background: transparent; color: var(--muted); border: 0; height: 40px; margin-top: 4px;
+      font-weight: 500; font-size: 13px;
+    }
+    .section {
+      margin-top: 22px; font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted); font-weight: 600;
+    }
+    .list {
+      margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      background: var(--card);
+    }
+    .item {
+      padding: 13px 14px; font-size: 14px; border-bottom: 1px solid var(--border2);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .item:last-child { border-bottom: 0; }
+    .check {
+      width: 15px; height: 15px; border: 1px solid var(--border); border-radius: 3px;
+      background: #fff;
+    }
+    .check.empty { background: transparent; }
+    .bind {
+      margin-top: 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      padding: 12px 14px;
+    }
+    .bind-top {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .bind-title { font-size: 14px; font-weight: 500; }
+    .bind-x { color: var(--muted); font-size: 12px; }
+    .bind-pkg {
+      margin-top: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px; color: var(--muted);
+    }
+    .bind-id {
+      margin-top: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px; color: var(--muted2);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .empty {
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      padding: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .meta { margin-top: 18px; text-align: center; color: var(--muted2); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1>Flash — макет для команды</h1>
+        <p>
+          Личное приложение трейдера: сканирует QR реквизита, слушает пуши банков
+          и шлёт событие на сервер с <code style="color:#e4e4e7">device_uuid + binding_uuid + source</code>.
+          Парсинг сумм и закрытие ордеров — на вашей стороне.
+        </p>
+      </div>
+      <div class="badge"><i></i> UI ONLY · API позже</div>
+    </div>
+
+    <div class="phones">
+      <!-- Screen 1: empty -->
+      <div class="col">
+        <div class="cap">1 · Первый запуск</div>
+        <div class="phone">
+          <div class="brand"><div class="bolt"></div>Flash</div>
+          <p class="tagline">Парсинг пушей банков для команды</p>
+
+          <div class="card">
+            <div class="row">
+              <div class="dot off"></div>
+              <div class="status">Ожидает QR</div>
+              <div class="switch"></div>
+            </div>
+            <div class="hint">Слушать события</div>
+            <div class="hr"></div>
+            <div class="label">App UUID</div>
+            <div class="uuid">7f3a9c2e-4b18-4d91-9e0a-12cd88af4410</div>
+            <button class="btn">Сканировать QR</button>
+            <div class="hint" style="text-align:center;margin-top:10px">
+              QR реквизита из панели трейдера
+            </div>
+          </div>
+
+          <div class="section">Реквизиты</div>
+          <div class="empty">Подключённых реквизитов пока нет. Отсканируйте QR.</div>
+
+          <div class="section">Действия</div>
+          <button class="btn outline">Приложения</button>
+          <button class="btn outline">История</button>
+          <button class="btn outline">Логи</button>
+          <div class="meta">v 0.2.5</div>
+        </div>
+      </div>
+
+      <!-- Screen 2: paired -->
+      <div class="col">
+        <div class="cap">2 · После скана QR</div>
+        <div class="phone">
+          <div class="brand"><div class="bolt"></div>Flash</div>
+          <p class="tagline">Парсинг пушей банков для команды</p>
+
+          <div class="card">
+            <div class="row">
+              <div class="dot"></div>
+              <div class="status">Привязан · 2 рекв.</div>
+              <div class="switch"></div>
+            </div>
+            <div class="hint">Слушать события</div>
+            <div class="hr"></div>
+            <div class="label">App UUID</div>
+            <div class="uuid">7f3a9c2e-4b18-4d91-9e0a-12cd88af4410</div>
+            <button class="btn">Сканировать QR</button>
+            <div class="hint" style="text-align:center;margin-top:10px">
+              Можно добавить ещё реквизит другого банка
+            </div>
+          </div>
+
+          <div class="section">Реквизиты</div>
+          <div class="bind">
+            <div class="bind-top">
+              <div class="bind-title">ARS · Счёт Аргентина</div>
+              <div class="bind-x">Удалить</div>
+            </div>
+            <div class="bind-pkg">example.bank.argentina</div>
+            <div class="bind-id">uuid-argentinian-account</div>
+          </div>
+          <div class="bind">
+            <div class="bind-top">
+              <div class="bind-title">BOB · Счёт Боливия</div>
+              <div class="bind-x">Удалить</div>
+            </div>
+            <div class="bind-pkg">example.bank.bolivia</div>
+            <div class="bind-id">uuid-bolivian-account</div>
+          </div>
+
+          <div class="section">Действия</div>
+          <button class="btn outline">Приложения</button>
+          <button class="btn outline">История</button>
+          <button class="btn outline">Логи</button>
+          <div class="meta">v 0.2.5</div>
+        </div>
+      </div>
+
+      <!-- Screen 3: event conceptually -->
+      <div class="col">
+        <div class="cap">3 · Что уходит на сервер</div>
+        <div class="phone" style="min-height:auto;padding-bottom:22px">
+          <div class="brand" style="font-size:22px"><div class="bolt" style="width:20px;height:20px"></div>Событие</div>
+          <p class="tagline">Пуш 5000 BOB от боливийского банка</p>
+
+          <div class="card" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.55;color:#d4d4d8;white-space:pre;overflow:auto">{
+{
+  "device_uuid": "7f3a9c2e-…",
+  "binding_uuid": "uuid-bolivian…",
+  "source": {
+    "type": "push",
+    "package": "example.bank.bolivia"
+  },
+  "content": {
+    "text": "Вы получили перевод 5000 BOB"
+  },
+  "received_at": "2026-11-04T…"
+}</div>
+
+          <div class="empty" style="margin-top:14px">
+            Матчинг: <code>package → binding</code>.<br/>
+            Сумму и закрытие ордера считает сервер
+            (1 реквизит = 1 уникальная сумма).
+          </div>
+
+          <div class="section">Правила</div>
+          <div class="list">
+            <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
+              1 банк = 1 реквизит на девайс
+            </div>
+            <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
+              Несколько банков на одном телефоне — ок
+            </div>
+            <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
+              Неоднозначно → binding_uuid: null
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
