@@ -250,7 +250,7 @@
           <button class="btn outline">Приложения</button>
           <button class="btn outline">История</button>
           <button class="btn outline">Логи</button>
-          <div class="meta">v 0.2.5</div>
+          <div class="meta">v 1.0.0</div>
         </div>
       </div>
 
@@ -283,7 +283,7 @@
               <div class="bind-title">ARS · Счёт Аргентина</div>
               <div class="bind-x">Удалить</div>
             </div>
-            <div class="bind-pkg">example.bank.argentina</div>
+            <div class="bind-pkg">push · example.bank.argentina</div>
             <div class="bind-id">uuid-argentinian-account</div>
           </div>
           <div class="bind">
@@ -291,7 +291,7 @@
               <div class="bind-title">BOB · Счёт Боливия</div>
               <div class="bind-x">Удалить</div>
             </div>
-            <div class="bind-pkg">example.bank.bolivia</div>
+            <div class="bind-pkg">push · example.bank.bolivia</div>
             <div class="bind-id">uuid-bolivian-account</div>
           </div>
 
@@ -299,7 +299,7 @@
           <button class="btn outline">Приложения</button>
           <button class="btn outline">История</button>
           <button class="btn outline">Логи</button>
-          <div class="meta">v 0.2.5</div>
+          <div class="meta">v 1.0.0</div>
         </div>
       </div>
 
@@ -325,21 +325,21 @@
 }</div>
 
           <div class="empty" style="margin-top:14px">
-            Матчинг: <code>package → binding</code>.<br/>
-            Сумму и закрытие ордера считает сервер
-            (1 реквизит = 1 уникальная сумма).
+            Привязка по пушу: <code>package → реквизит</code>.<br/>
+            Связка: прога + app name + рек + сумма.<br/>
+            Тип пуша (начисление/списание) разбирает сервер.
           </div>
 
           <div class="section">Правила</div>
           <div class="list">
             <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
-              1 банк = 1 реквизит на девайс
+              1 банк = 1 реквизит на одном девайсе
             </div>
             <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
-              Несколько банков на одном телефоне — ок
+              На 1 проге может быть до 10 банков
             </div>
             <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
-              Неоднозначно → binding_uuid: null
+              Дубль банка → вторая прога / девайс
             </div>
           </div>
         </div>
