@@ -204,8 +204,29 @@
     }
     .meta { margin-top: 18px; text-align: center; color: var(--muted2); font-size: 12px; }
 
-    /* ---------- FlashFlow (блок ниже Flash) ---------- */
-    .divider { height: 1px; background: var(--border); margin: 64px 0 44px; }
+    /* ---------- Вкладки Flash / FlashFlow ---------- */
+    .tabs {
+      display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 32px;
+      border: 1px solid var(--border); border-radius: 10px; background: var(--card);
+    }
+    .tab {
+      display: inline-flex; align-items: center; gap: 8px;
+      height: 34px; padding: 0 16px; border: 0; border-radius: 7px;
+      background: transparent; color: var(--muted);
+      font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+      transition: background .15s ease, color .15s ease;
+    }
+    .tab:hover { color: var(--fg); }
+    .tab[aria-selected="true"] { background: #1c1c20; color: var(--fg); }
+    .tab:focus-visible { outline: 2px solid #52525b; outline-offset: 2px; }
+    .tab .tab-bolt {
+      width: 12px; height: 12px; background: currentColor;
+      clip-path: polygon(40% 0, 10% 55%, 42% 55%, 28% 100%, 90% 42%, 55% 42%);
+    }
+    .tab[data-tab="flashflow"][aria-selected="true"] .tab-bolt { background: #f5a623; }
+    .panel[hidden] { display: none; }
+
+    /* ---------- FlashFlow ---------- */
     .ff { --accent: #f5a623; --warn: #f59e0b; --bad: #ef4444; }
     .ff .phones { gap: 24px; }
     .ff .phone { width: 320px; padding: 22px 16px 24px; min-height: 650px; position: relative; }
@@ -246,6 +267,17 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Приложения">
+      <button class="tab" role="tab" id="tab-flash" data-tab="flash" aria-controls="panel-flash" aria-selected="true">
+        <span class="tab-bolt"></span>Flash
+      </button>
+      <button class="tab" role="tab" id="tab-flashflow" data-tab="flashflow" aria-controls="panel-flashflow" aria-selected="false" tabindex="-1">
+        <span class="tab-bolt"></span>FlashFlow
+      </button>
+    </div>
+
+    <!-- ==================== Flash ==================== -->
+    <section class="panel" id="panel-flash" role="tabpanel" aria-labelledby="tab-flash">
     <div class="top">
       <div>
         <h1>Flash — макет для команды</h1>
@@ -385,10 +417,10 @@
       </div>
     </div>
 
-    <div class="divider"></div>
+    </section>
 
     <!-- ==================== FlashFlow ==================== -->
-    <section class="ff">
+    <section class="panel ff" id="panel-flashflow" role="tabpanel" aria-labelledby="tab-flashflow" hidden>
       <div class="top">
         <div>
           <h1>FlashFlow — выплатное приложение (макет)</h1>
@@ -573,5 +605,36 @@
     </section>
 
   </div>
+
+  <script>
+    (function () {
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+      var names = tabs.map(function (t) { return t.dataset.tab; });
+
+      function show(name, updateHash) {
+        if (names.indexOf(name) === -1) name = names[0];
+        tabs.forEach(function (t) {
+          var active = t.dataset.tab === name;
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+          t.tabIndex = active ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+        });
+        if (updateHash) history.replaceState(null, '', '#' + name);
+      }
+
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { show(t.dataset.tab, true); });
+        t.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+          var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+          next.focus();
+          show(next.dataset.tab, true);
+        });
+      });
+
+      window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+      show(location.hash.slice(1), false);
+    })();
+  </script>
 </body>
 </html>
