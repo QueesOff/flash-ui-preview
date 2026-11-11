@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flash — UI Preview</title>
+  <title>Flash · FlashFlow — UI Preview</title>
   <style>
     :root {
       --bg: #09090b;
@@ -203,6 +203,45 @@
       line-height: 1.45;
     }
     .meta { margin-top: 18px; text-align: center; color: var(--muted2); font-size: 12px; }
+
+    /* ---------- FlashFlow (блок ниже Flash) ---------- */
+    .divider { height: 1px; background: var(--border); margin: 64px 0 44px; }
+    .ff { --accent: #f5a623; --warn: #f59e0b; --bad: #ef4444; }
+    .ff .phones { gap: 24px; }
+    .ff .phone { width: 320px; padding: 22px 16px 24px; min-height: 650px; position: relative; }
+    .ff .brand { font-size: 24px; }
+    .ff .brand.sm { font-size: 20px; }
+    .ff .bolt { width: 24px; height: 24px; background: var(--accent); }
+    .ff .brand.sm .bolt { width: 20px; height: 20px; }
+    .ff .card { margin-top: 20px; }
+    .ff .section { margin-top: 20px; }
+    .ff .dot.warn { background: var(--warn); }
+    .ff .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .ff .btn { background: var(--accent); color: #1a1205; }
+    .ff .btn.outline { background: transparent; color: var(--fg); }
+    .ff .offer { margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); padding: 14px; }
+    .ff .offer .amt { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+    .ff .offer-meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .ff .offer .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .ff .pill { font-size: 11px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+    .ff .pill.green { color: var(--ok); border-color: #184a2a; }
+    .ff .pill.amber { color: var(--warn); border-color: #4a3a18; }
+    .ff .pill.blue { color: #60a5fa; border-color: #1e3a5a; }
+    .ff .pill.red { color: var(--bad); border-color: #442020; }
+    .ff .kv { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border2); font-size: 13px; }
+    .ff .kv:last-child { border-bottom: 0; }
+    .ff .kv .k { color: var(--muted); }
+    .ff .kv .v { color: var(--fg); text-align: right; word-break: break-all; }
+    .ff .field { margin-top: 10px; }
+    .ff .field .fl { color: var(--muted); font-size: 12px; margin-bottom: 4px; display: block; }
+    .ff .input { width: 100%; background: #0a0a0b; border: 1px solid var(--border); border-radius: 8px; color: var(--fg); font-size: 13px; padding: 11px 12px; font-family: inherit; }
+    .ff .modal-wrap { position: absolute; inset: 0; background: rgba(0,0,0,.6); border-radius: 28px; display: flex; align-items: flex-end; justify-content: center; padding: 14px; }
+    .ff .modal { width: 100%; background: #141416; border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+    .ff .modal h3 { margin: 0 0 6px; font-size: 16px; }
+    .ff .modal p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .ff .nav { display: flex; gap: 6px; margin-top: 18px; border: 1px solid var(--border); border-radius: 10px; padding: 4px; background: var(--card); }
+    .ff .nav div { flex: 1; text-align: center; font-size: 12px; padding: 8px 0; border-radius: 7px; color: var(--muted); }
+    .ff .nav div.active { background: #1c1c20; color: var(--fg); }
   </style>
 </head>
 <body>
@@ -345,6 +384,193 @@
         </div>
       </div>
     </div>
+
+    <div class="divider"></div>
+
+    <!-- ==================== FlashFlow ==================== -->
+    <section class="ff">
+      <div class="top">
+        <div>
+          <h1>FlashFlow — выплатное приложение (макет)</h1>
+          <p>
+            Второе приложение трейдера: подключается по QR, показывает предложения на выплату,
+            даёт взять заявку в работу, выдаёт реквизиты получателя и принимает отчёт об оплате.
+            Закрытие заявки — на сервере.
+          </p>
+        </div>
+        <div class="badge"><i></i> UI ONLY · API позже</div>
+      </div>
+
+      <div class="phones">
+        <!-- FF 1: connect -->
+        <div class="col">
+          <div class="cap">1 · Подключение</div>
+          <div class="phone">
+            <div class="brand"><div class="bolt"></div>FlashFlow</div>
+            <p class="tagline">Выплаты трейдера</p>
+
+            <div class="card">
+              <div class="row">
+                <div class="dot off"></div>
+                <div class="status">Ожидает подключения</div>
+              </div>
+              <div class="hint">Подключитесь к своему аккаунту трейдера</div>
+              <div class="hr"></div>
+              <div class="label">App UUID</div>
+              <div class="uuid">91000000-0000-4000-8000-000000000001</div>
+              <button class="btn">Сканировать QR</button>
+              <div class="hint" style="text-align:center;margin-top:10px">
+                QR из раздела «Приложение выплат» в кабинете
+              </div>
+            </div>
+
+            <div class="section">Безопасность</div>
+            <div class="card" style="margin-top:10px">
+              <div class="kv"><span class="k">Ключ устройства</span><span class="v">создаётся локально</span></div>
+              <div class="kv"><span class="k">Логин / пароль</span><span class="v">не нужны</span></div>
+              <div class="kv"><span class="k">Соединение</span><span class="v">только HTTPS</span></div>
+            </div>
+            <div class="meta">v 1.0.0</div>
+          </div>
+        </div>
+
+        <!-- FF 2: confirm account -->
+        <div class="col">
+          <div class="cap">2 · Это твой аккаунт?</div>
+          <div class="phone">
+            <div class="brand"><div class="bolt"></div>FlashFlow</div>
+            <p class="tagline">Выплаты трейдера</p>
+            <div class="card">
+              <div class="row"><div class="dot warn"></div><div class="status">Проверка кода…</div></div>
+              <div class="hint">Код из QR проверен</div>
+            </div>
+
+            <div class="modal-wrap">
+              <div class="modal">
+                <h3>Подтвердите аккаунт</h3>
+                <p>Приложение подключится к этому аккаунту трейдера.</p>
+                <div class="hr"></div>
+                <div class="kv"><span class="k">Трейдер</span><span class="v">Demo trader</span></div>
+                <div class="kv"><span class="k">Устройство</span><span class="v">Demo phone</span></div>
+                <div class="kv"><span class="k">Сервер</span><span class="v mono" style="font-size:11px">payments.example.test</span></div>
+                <div class="kv"><span class="k">Код действует</span><span class="v">до 12:10</span></div>
+                <button class="btn">Это мой аккаунт — подключить</button>
+                <button class="btn outline">Отмена</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FF 3: offers -->
+        <div class="col">
+          <div class="cap">3 · Предложения</div>
+          <div class="phone">
+            <div class="brand"><div class="bolt"></div>FlashFlow</div>
+            <p class="tagline">Demo trader · на связи</p>
+
+            <div class="card" style="margin-top:14px;padding:12px 14px">
+              <div class="row">
+                <div class="dot"></div>
+                <div class="status">Подключён · доступ 30 дн.</div>
+              </div>
+              <div class="hint">Список обновляется автоматически</div>
+            </div>
+
+            <div class="section">Новые заявки</div>
+
+            <div class="offer">
+              <div class="amt">5 000.00 ARS</div>
+              <div class="offer-meta">Банковский перевод · CBU/CVU · Аргентина</div>
+              <div class="foot">
+                <span class="pill green">бонус +100 ARS</span>
+                <span class="pill amber">⏳ 4:21</span>
+              </div>
+              <button class="btn">Взять в работу</button>
+            </div>
+
+            <div class="offer">
+              <div class="amt">12 500.00 BOB</div>
+              <div class="offer-meta">Перевод по номеру счёта · Боливия</div>
+              <div class="foot">
+                <span class="pill green">бонус +260 BOB</span>
+                <span class="pill amber">⏳ 2:05</span>
+              </div>
+              <button class="btn outline">Взять в работу</button>
+            </div>
+
+            <div class="nav">
+              <div class="active">Заявки</div>
+              <div>В работе</div>
+              <div>История</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FF 4: requisites + report -->
+        <div class="col">
+          <div class="cap">4 · Реквизиты + отчёт</div>
+          <div class="phone">
+            <div class="brand sm"><div class="bolt"></div>Заявка</div>
+            <p class="tagline">5 000.00 ARS · в работе</p>
+
+            <div class="section">Реквизиты получателя</div>
+            <div class="card" style="margin-top:10px">
+              <div class="kv"><span class="k">full_name</span><span class="v">TEST RECIPIENT</span></div>
+              <div class="kv"><span class="k">account_number</span><span class="v mono" style="font-size:11px">0000000000000000000000</span></div>
+              <div class="kv"><span class="k">bank_code</span><span class="v">demo-bank-ar</span></div>
+              <div class="hint">Поля приходят с сервера — показываем все как есть</div>
+            </div>
+
+            <div class="section">Я оплатил</div>
+            <div class="field">
+              <span class="fl">Сумма (должна совпасть)</span>
+              <input class="input mono" value="5000.00" readonly />
+            </div>
+            <div class="field">
+              <span class="fl">Номер перевода (reference)</span>
+              <input class="input mono" value="BANK-TRANSFER-1" readonly />
+            </div>
+            <div class="field">
+              <span class="fl">Чек / подтверждение · <span style="color:var(--warn)">нет в ТЗ, на обсуждение</span></span>
+              <input class="input" value="📎 Прикрепить фото или PDF" readonly />
+            </div>
+            <button class="btn">Отправить отчёт</button>
+            <button class="btn outline">Не понятно, прошёл ли перевод</button>
+          </div>
+        </div>
+
+        <!-- FF 5: statuses + history -->
+        <div class="col">
+          <div class="cap">5 · Статусы и история</div>
+          <div class="phone">
+            <div class="brand sm"><div class="bolt"></div>В работе</div>
+            <p class="tagline">Статусы заявок</p>
+
+            <div class="offer">
+              <div class="row"><div class="status">5 000.00 ARS</div><span class="pill amber">ждёт админа</span></div>
+              <div class="offer-meta">Отчёт отправлен · 12:00:30</div>
+            </div>
+            <div class="offer">
+              <div class="row"><div class="status">12 500.00 BOB</div><span class="pill blue">ручная проверка</span></div>
+              <div class="offer-meta">Отправлено на разбор</div>
+            </div>
+
+            <div class="section">История</div>
+            <div class="offer">
+              <div class="row"><div class="status">8 000.00 ARS</div><span class="pill green">оплачено</span></div>
+              <div class="offer-meta">ref: BANK-9921 · 10 ноя</div>
+            </div>
+            <div class="offer">
+              <div class="row"><div class="status">3 400.00 BOB</div><span class="pill red">отказ</span></div>
+              <div class="offer-meta">Не проведена · 09 ноя</div>
+            </div>
+            <div class="hint" style="margin-top:12px">
+              История хранится на сервере — сохраняется после переустановки
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </div>
 </body>
