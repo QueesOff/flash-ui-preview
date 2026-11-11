@@ -204,6 +204,44 @@
     }
     .meta { margin-top: 18px; text-align: center; color: var(--muted2); font-size: 12px; }
 
+    /* ---------- Flash: экраны Приложения / История / Логи ---------- */
+    .topbar { display: flex; align-items: center; gap: 4px; padding-bottom: 4px; }
+    .topbar .back { width: 40px; height: 40px; display: grid; place-items: center; margin-left: -8px; flex-shrink: 0; }
+    .topbar .back svg { width: 24px; height: 24px; fill: var(--fg); }
+    .topbar .title { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; }
+    .sub { color: var(--muted); font-size: 13px; margin: 6px 0 16px; line-height: 1.4; }
+    .search {
+      background: #0a0a0b; border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; font-size: 14px; color: var(--muted2);
+    }
+    .apps { margin-top: 12px; }
+    .app-row {
+      display: flex; align-items: center; gap: 12px; padding: 12px 4px;
+      border-bottom: 1px solid var(--border); font-size: 14px;
+    }
+    .app-row:last-child { border-bottom: 0; }
+    .app-ico {
+      width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+      display: grid; place-items: center; font-size: 13px; font-weight: 600; color: #fff;
+    }
+    .app-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cbx { width: 18px; height: 18px; border: 2px solid var(--muted2); border-radius: 3px; flex-shrink: 0; position: relative; }
+    .cbx.on { background: var(--fg); border-color: var(--fg); }
+    .cbx.on::after {
+      content: ""; position: absolute; left: 4px; top: 0; width: 4px; height: 9px;
+      border: solid var(--bg); border-width: 0 2px 2px 0; transform: rotate(45deg);
+    }
+    .logbox {
+      margin-top: 16px; background: var(--card2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px; line-height: 1.6; color: var(--muted); word-break: break-word;
+    }
+    .logbox.flush { margin-top: 0; }
+    .logbox .entry + .entry { margin-top: 18px; }
+    .logbox b { color: var(--muted); font-weight: 700; }
+    .logbox .g { color: #22a222; }
+    .logbox .d { color: #888; font-size: 11px; }
+
     /* ---------- Вкладки Flash / FlashFlow ---------- */
     .tabs {
       display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 32px;
@@ -382,7 +420,6 @@
           <p class="tagline">Пуш 5000 BOB от боливийского банка</p>
 
           <div class="card" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;line-height:1.55;color:#d4d4d8;white-space:pre;overflow:auto">{
-{
   "device_uuid": "7f3a9c2e-…",
   "binding_uuid": "uuid-bolivian…",
   "source": {
@@ -412,6 +449,124 @@
             <div class="item" style="font-size:12px;color:var(--muted);line-height:1.4">
               Дубль банка → вторая прога / девайс
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: apps -->
+      <div class="col">
+        <div class="cap">4 · Приложения</div>
+        <div class="phone">
+          <div class="topbar">
+            <div class="back"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></div>
+            <div class="title">Приложения</div>
+          </div>
+          <p class="sub">Выберите банковские приложения для перехвата пушей</p>
+
+          <div class="search">Поиск приложений</div>
+
+          <div class="apps">
+            <div class="app-row">
+              <div class="app-ico" style="background:#2563eb">AR</div>
+              <div class="app-name">Demo Bank Argentina</div>
+              <div class="cbx on"></div>
+            </div>
+            <div class="app-row">
+              <div class="app-ico" style="background:#16a34a">BO</div>
+              <div class="app-name">Demo Bank Bolivia</div>
+              <div class="cbx on"></div>
+            </div>
+            <div class="app-row">
+              <div class="app-ico" style="background:#9333ea">W</div>
+              <div class="app-name">Demo Wallet</div>
+              <div class="cbx"></div>
+            </div>
+            <div class="app-row">
+              <div class="app-ico" style="background:#0891b2">M</div>
+              <div class="app-name">Мессенджер</div>
+              <div class="cbx"></div>
+            </div>
+            <div class="app-row">
+              <div class="app-ico" style="background:#ea580c">К</div>
+              <div class="app-name">Калькулятор</div>
+              <div class="cbx"></div>
+            </div>
+            <div class="app-row">
+              <div class="app-ico" style="background:#52525b">З</div>
+              <div class="app-name">Заметки</div>
+              <div class="cbx"></div>
+            </div>
+          </div>
+
+          <div class="hint" style="margin-top:14px;line-height:1.45">
+            Список — установленные на телефоне приложения (без системных). Отмеченные слушаем.
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 5: history -->
+      <div class="col">
+        <div class="cap">5 · История</div>
+        <div class="phone">
+          <div class="topbar">
+            <div class="back"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></div>
+            <div class="title">История</div>
+          </div>
+          <p class="sub" style="margin-bottom:0">История пушей</p>
+
+          <button class="btn outline" style="margin-top:16px;height:48px">Очистить историю</button>
+
+          <div class="logbox">
+            <div class="entry">
+              <b>ID:</b> <span class="g">********************************4410</span><br/>
+              <b>Сообщение:</b> Вы получили перевод 5000 BOB<br/>
+              <span class="d">Дата: 2026-11-11 09:38:12</span>
+            </div>
+            <div class="entry">
+              <b>ID:</b> <span class="g">********************************4410</span><br/>
+              <b>Сообщение:</b> Recibiste una transferencia de $ 12.500<br/>
+              <span class="d">Дата: 2026-11-11 09:21:47</span>
+            </div>
+            <div class="entry">
+              <b>ID:</b> <span class="g">********************************4410</span><br/>
+              <b>Сообщение:</b> Вы получили перевод 800 BOB<br/>
+              <span class="d">Дата: 2026-11-10 22:05:30</span>
+            </div>
+          </div>
+
+          <div class="hint" style="margin-top:14px;line-height:1.45">
+            Последние 100 пойманных пушей. Хранится на телефоне.
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 6: logs -->
+      <div class="col">
+        <div class="cap">6 · Логи</div>
+        <div class="phone">
+          <div class="topbar">
+            <div class="back"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></div>
+            <div class="title">Логи</div>
+          </div>
+          <p class="sub">Ответы сервера и статусы отправки</p>
+
+          <div class="logbox flush">
+            <div class="entry">
+              <b class="g">Log:</b> Успешно: 200<br/>
+              <span class="d">Дата: 2026-11-11 09:38:13</span>
+            </div>
+            <div class="entry">
+              <b class="g">Log:</b> Успешно: 200<br/>
+              <span class="d">Дата: 2026-11-11 09:21:48</span>
+            </div>
+            <div class="entry">
+              <b class="g">Log:</b> Ошибка при отправке данных: timeout<br/>
+              <span class="d">Дата: 2026-11-10 22:05:41</span>
+            </div>
+          </div>
+
+          <div class="hint" style="margin-top:14px;line-height:1.45">
+            Статус отправки каждого пуша на сервер. До 100 записей, очищаются при закрытии приложения.
           </div>
         </div>
       </div>
